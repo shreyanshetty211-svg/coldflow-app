@@ -860,7 +860,7 @@ Make it concise, personalized, under 120 words, with a clear call to action.`;
 
   } catch (error) {
     document.getElementById('loadingOverlay').classList.remove('active');
-    alert('Error: ' + (error.message || 'Unknown error'));
+    alert('❌ ' + (error.message || JSON.stringify(error)));
   }
 }
 
