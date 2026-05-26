@@ -494,6 +494,69 @@ textarea.form-input { min-height: 90px; resize: none; }
   100% { content: '...'; }
 }
 
+/* EXAMPLES SECTION */
+.examples-section { padding: 0 20px 20px; }
+.examples-title { font-size: 14px; color: #9ca3af; margin-bottom: 12px; }
+
+.example-card {
+  background: #1a1a24;
+  border: 1px solid #2a2a3a;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  animation: fadeSlideUp 0.4s ease both;
+}
+
+.example-card:nth-child(2) { animation-delay: 0.1s; }
+.example-card:nth-child(3) { animation-delay: 0.2s; }
+.example-card:nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.example-tone-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.example-tone-badge.professional { background: #6c63ff22; color: #a78bfa; border: 1px solid #6c63ff44; }
+.example-tone-badge.friendly { background: #22c55e22; color: #86efac; border: 1px solid #22c55e44; }
+.example-tone-badge.direct { background: #f59e0b22; color: #fcd34d; border: 1px solid #f59e0b44; }
+
+.example-subject {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c63ff;
+  margin-bottom: 8px;
+}
+
+.example-body {
+  font-size: 12px;
+  color: #9ca3af;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.examples-cta {
+  text-align: center;
+  font-size: 13px;
+  color: #6c63ff;
+  font-weight: 600;
+  padding: 12px 0 4px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.examples-cta:active { opacity: 0.7; }
+
 /* HISTORY SCREEN */
 #history { padding: 50px 20px 100px; }
 .history-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
@@ -551,6 +614,47 @@ textarea.form-input { min-height: 90px; resize: none; }
         <div class="stat-label">Credits</div>
       </div>
     </div>
+  </div>
+
+  <div class="examples-section">
+    <div class="examples-title">EXAMPLE COLD EMAILS</div>
+
+    <div class="example-card">
+      <div class="example-tone-badge professional">Professional</div>
+      <div class="example-subject">Subject: quick question about your hiring process</div>
+      <div class="example-body">Dear Sarah,
+
+I help SaaS companies cut time-to-hire by 40% using async video screening — no scheduling back-and-forth.
+
+Would it make sense to show you how it works for a team your size?
+
+Best regards,
+Alex</div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-tone-badge friendly">Friendly</div>
+      <div class="example-subject">Subject: loved what you're building at Notion</div>
+      <div class="example-body">Hey Marcus,
+
+Been following your product updates — the new templates feature is genuinely great.
+
+I design onboarding flows for PLG tools and had a few ideas specific to what you're building. Worth a quick chat?
+
+Cheers, Priya</div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-tone-badge direct">Short & Direct</div>
+      <div class="example-subject">Subject: more leads from your existing traffic</div>
+      <div class="example-body">Your landing page gets traffic but converts under 2%.
+
+I fix that — usually 2x lift in 3 weeks.
+
+Open to a 15-min look?</div>
+    </div>
+
+    <div class="examples-cta" onclick="showScreen('generator')">Generate your own in seconds →</div>
   </div>
 
   <div class="recent-section">
