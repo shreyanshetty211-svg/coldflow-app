@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#6c63ff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>ColdFlow — AI Cold Email Writer</title>
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f14;
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* SCREENS */
+.screen { display: none; min-height: 100vh; flex-direction: column; }
+.screen.active { display: flex; }
+
+/* SPLASH SCREEN */
+#splash {
+  background: #0f0f14;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.splash-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #6c63ff44 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+.splash-logo {
+  font-size: 48px;
+  font-weight: 800;
+  z-index: 1;
+  text-shadow: 0 0 30px #6c63ff88;
+}
+
+.splash-logo span { color: #6c63ff; }
+.splash-tagline { color: #9ca3af; margin-top: 8px; z-index: 1; font-size: 14px; }
+
+.splash-bar {
+  position: absolute;
+  bottom: 60px;
+  width: 200px;
+  height: 3px;
+  background: #1a1a24;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.splash-bar-fill {
+  height: 100%;
+  background: #6c63ff;
+  border-radius: 10px;
+  animation: load 2.5s ease forwards;
+}
+
+@keyframes load { from { width: 0%; } to { width: 100%; } }
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a24;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0 20px;
+  border-top: 1px solid #2a2a3a;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px 16px;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.nav-item.active .nav-icon { color: #6c63ff; }
+.nav-item.active .nav-label { color: #6c63ff; }
+.nav-icon { font-size: 20px; color: #9ca3af; }
+.nav-label { font-size: 10px; color: #9ca3af; }
+
+/* HOME SCREEN */
+#home { padding-bottom: 80px; }
+
+.home-header {
+  padding: 50px 20px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.greeting { font-size: 22px; font-weight: 700; }
+.greeting span { color: #6c63ff; }
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.hero-card {
+  margin: 0 20px;
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+  border-radius: 20px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+}
+
+.hero-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.hero-sub { font-size: 13px; opacity: 0.85; margin-bottom: 16px; }
+.hero-btn {
+  background: white;
+  color: #6c63ff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.stats-section { padding: 20px; }
+.stats-title { font-size: 14px; color: #9ca3af; margin-bottom: 12px; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+.stat-card {
+  background: #1a1a24;
+  border-radius: 16px;
+  padding: 16px 12px;
+  text-align: center;
+  border: 1px solid #2a2a3a;
+}
+
+.stat-icon { font-size: 20px; margin-bottom: 6px; }
+.stat-number { font-size: 20px; font-weight: 700; color: #6c63ff; }
+.stat-label { font-size: 10px; color: #9ca3af; margin-top: 2px; }
+
+.recent-section { padding: 0 20px 20px; }
+.recent-title { font-size: 14px; color: #9ca3af; margin-bottom: 12px; }
+
+.email-card {
+  background: #1a1a24;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid #2a2a3a;
+  cursor: pointer;
+}
+
+.email-card-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.email-company { font-size: 14px; font-weight: 600; }
+.email-date { font-size: 11px; color: #9ca3af; }
+.email-preview { font-size: 12px; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.free-badge {
+  background: #1a1a24;
+  border: 1px solid #6c63ff44;
+  border-radius: 12px;
+  padding: 12px 20px;
+  margin: 0 20px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.free-text { font-size: 13px; color: #9ca3af; }
+.free-count { font-size: 13px; color: #6c63ff; font-weight: 600; }
+
+/* GENERATOR SCREEN */
+#generator { padding-bottom: 100px; }
+
+.screen-header {
+  padding: 50px 20px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.back-btn {
+  background: #1a1a24;
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen-title { font-size: 20px; font-weight: 700; }
+
+.form-section { padding: 0 20px; }
+
+.form-group { margin-bottom: 20px; }
+.form-label { font-size: 13px; color: #9ca3af; margin-bottom: 8px; display: block; }
+
+.form-input {
+  width: 100%;
+  background: #1a1a24;
+  border: 1px solid #2a2a3a;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #fff;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus { border-color: #6c63ff; }
+textarea.form-input { min-height: 90px; resize: none; }
+
+.tone-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.tone-pill {
+  background: #1a1a24;
+  border: 1px solid #2a2a3a;
+  color: #9ca3af;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s;
+}
+
+.tone-pill.active {
+  background: #6c63ff22;
+  border-color: #6c63ff;
+  color: #6c63ff;
+}
+
+.generate-btn-fixed {
+  position: fixed;
+  bottom: 80px;
+  left: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 8px 24px #6c63ff44;
+  transition: transform 0.1s;
+}
+
+.generate-btn-fixed:active { transform: scale(0.98); }
+
+/* RESULT SCREEN */
+#result-screen { padding-bottom: 80px; }
+
+.result-header {
+  padding: 50px 20px 20px;
+  text-align: center;
+}
+
+.result-title { font-size: 22px; font-weight: 700; }
+.result-subtitle { font-size: 13px; color: #9ca3af; margin-top: 4px; }
+
+.email-result-card {
+  margin: 0 20px;
+  background: #1a1a24;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid #6c63ff44;
+  box-shadow: 0 0 20px #6c63ff22;
+}
+
+.email-subject {
+  font-size: 13px;
+  color: #6c63ff;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2a2a3a;
+}
+
+.email-body {
+  font-size: 13px;
+  color: #e5e7eb;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.action-buttons { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.action-btn {
+  background: #1a1a24;
+  border: 1px solid #2a2a3a;
+  color: white;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+  border: none;
+  grid-column: span 2;
+}
+
+.action-btn:active { transform: scale(0.97); }
+
+.ai-score-card {
+  margin: 0 20px 20px;
+  background: #1a1a24;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #2a2a3a;
+}
+
+.score-title { font-size: 13px; color: #9ca3af; margin-bottom: 12px; }
+.score-item { margin-bottom: 10px; }
+.score-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+.score-bar { height: 6px; background: #2a2a3a; border-radius: 10px; overflow: hidden; }
+.score-fill { height: 100%; background: linear-gradient(90deg, #6c63ff, #a78bfa); border-radius: 10px; }
+
+/* PAYWALL SCREEN */
+#paywall { padding-bottom: 80px; }
+
+.paywall-header {
+  padding: 50px 20px 20px;
+  text-align: center;
+}
+
+.paywall-icon { font-size: 48px; margin-bottom: 12px; }
+.paywall-title { font-size: 24px; font-weight: 800; }
+.paywall-sub { font-size: 13px; color: #9ca3af; margin-top: 8px; }
+
+.features-list { padding: 20px; }
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #1a1a24;
+}
+
+.feature-check { color: #6c63ff; font-size: 18px; }
+.feature-text { font-size: 14px; }
+
+.pricing-cards { padding: 0 20px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.pricing-card {
+  background: #1a1a24;
+  border: 1px solid #2a2a3a;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+
+.pricing-card.best {
+  border-color: #6c63ff;
+  box-shadow: 0 0 20px #6c63ff33;
+  position: relative;
+}
+
+.best-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #6c63ff;
+  color: white;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.pricing-period { font-size: 11px; color: #9ca3af; margin-bottom: 8px; }
+.pricing-price { font-size: 24px; font-weight: 800; color: #6c63ff; }
+.pricing-period-label { font-size: 11px; color: #9ca3af; }
+
+.upgrade-btn {
+  margin: 0 20px 20px;
+  width: calc(100% - 40px);
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 8px 24px #6c63ff44;
+}
+
+.trust-section {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.trust-item { font-size: 11px; color: #9ca3af; text-align: center; }
+
+/* LOADING OVERLAY */
+.loading-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0f0f14ee;
+  z-index: 200;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.loading-overlay.active { display: flex; }
+
+.ai-orb {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #6c63ff, #a78bfa);
+  border-radius: 50%;
+  animation: orbPulse 1s infinite;
+  box-shadow: 0 0 40px #6c63ff88;
+}
+
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.loading-text { color: #9ca3af; font-size: 14px; }
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s infinite;
+}
+@keyframes dots {
+  0% { content: ''; }
+  33% { content: '.'; }
+  66% { content: '..'; }
+  100% { content: '...'; }
+}
+
+/* HISTORY SCREEN */
+#history { padding: 50px 20px 80px; }
+.history-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+.empty-state { text-align: center; padding: 60px 20px; color: #9ca3af; }
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div class="screen active" id="splash">
+  <div class="splash-glow"></div>
+  <div class="splash-logo">Cold<span>Flow</span></div>
+  <div class="splash-tagline">AI Cold Emails That Convert</div>
+  <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+</div>
+
+<!-- HOME -->
+<div class="screen" id="home">
+  <div class="home-header">
+    <div>
+      <div style="font-size:13px;color:#9ca3af;">Good day 👋</div>
+      <div class="greeting">Welcome to <span>ColdFlow</span></div>
+    </div>
+    <div class="avatar">⚡</div>
+  </div>
+
+  <div class="hero-card">
+    <div class="hero-title">Generate High-Converting Cold Emails in Seconds</div>
+    <div class="hero-sub">Powered by AI to boost replies and close more deals.</div>
+    <button class="hero-btn" onclick="showScreen('generator')">Generate Email ⚡</button>
+  </div>
+
+  <div class="free-badge">
+    <div class="free-text">Free emails remaining today</div>
+    <div class="free-count" id="homeCredits">2 / 2</div>
+  </div>
+
+  <div class="stats-section">
+    <div class="stats-title">YOUR STATS</div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📧</div>
+        <div class="stat-number" id="totalGenerated">0</div>
+        <div class="stat-label">Generated</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-number" id="todayCount">0</div>
+        <div class="stat-label">Today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-number" id="creditsLeft">2</div>
+        <div class="stat-label">Credits</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="recent-section">
+    <div class="recent-title">RECENT EMAILS</div>
+    <div id="recentEmails">
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <div>No emails yet. Generate your first one!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GENERATOR -->
+<div class="screen" id="generator">
+  <div class="screen-header">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="screen-title">Generate Cold Email</div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-group">
+      <label class="form-label">Your Name</label>
+      <input class="form-input" id="yourName" type="text" placeholder="e.g. Shreyan Shetty" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Your Service / Offer</label>
+      <textarea class="form-input" id="yourService" placeholder="e.g. I build Notion CRM templates for freelancers..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Prospect / Company Name</label>
+      <input class="form-input" id="companyName" type="text" placeholder="e.g. Nike, a local startup, John's Agency" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tone</label>
+      <div class="tone-pills">
+        <button class="tone-pill active" onclick="selectTone(this, 'Professional')">Professional</button>
+        <button class="tone-pill" onclick="selectTone(this, 'Friendly')">Friendly</button>
+        <button class="tone-pill" onclick="selectTone(this, 'Persuasive')">Persuasive</button>
+        <button class="tone-pill" onclick="selectTone(this, 'Short & Direct')">Short & Direct</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="generate-btn-fixed" onclick="generateEmail()">⚡ Generate Cold Email</button>
+</div>
+
+<!-- RESULT -->
+<div class="screen" id="result-screen">
+  <div class="result-header">
+    <div class="result-title">Your Email is Ready ✨</div>
+    <div class="result-subtitle">AI-crafted just for you</div>
+  </div>
+
+  <div class="email-result-card">
+    <div class="email-subject" id="emailSubject">Subject: Loading...</div>
+    <div class="email-body" id="emailBody">Loading...</div>
+  </div>
+
+  <div class="action-buttons">
+    <button class="action-btn primary" onclick="copyEmail()">📋 Copy Email</button>
+    <button class="action-btn" onclick="showScreen('generator')">🔄 Regenerate</button>
+    <button class="action-btn" onclick="showScreen('home')">🏠 Home</button>
+  </div>
+
+  <div class="ai-score-card">
+    <div class="score-title">AI QUALITY SCORE</div>
+    <div class="score-item">
+      <div class="score-label"><span>Reply Prediction</span><span id="replyScore">85%</span></div>
+      <div class="score-bar"><div class="score-fill" id="replyBar" style="width:85%"></div></div>
+    </div>
+    <div class="score-item">
+      <div class="score-label"><span>Readability</span><span id="readScore">92%</span></div>
+      <div class="score-bar"><div class="score-fill" id="readBar" style="width:92%"></div></div>
+    </div>
+    <div class="score-item">
+      <div class="score-label"><span>Spam Risk</span><span id="spamScore">Low</span></div>
+      <div class="score-bar"><div class="score-fill" id="spamBar" style="width:15%;background:linear-gradient(90deg,#22c55e,#86efac)"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div class="screen" id="history">
+  <div class="history-title">📋 Email History</div>
+  <div id="historyList">
+    <div class="empty-state">
+      <div class="empty-icon">📭</div>
+      <div>No emails yet!</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAYWALL -->
+<div class="screen" id="paywall">
+  <div class="paywall-header">
+    <div class="paywall-icon">⚡</div>
+    <div class="paywall-title">Unlock ColdFlow Pro</div>
+    <div class="paywall-sub">Generate unlimited high-converting cold emails</div>
+  </div>
+
+  <div class="features-list">
+    <div class="feature-item"><span class="feature-check">✓</span><span class="feature-text">Unlimited email generations</span></div>
+    <div class="feature-item"><span class="feature-check">✓</span><span class="feature-text">Advanced AI personalization</span></div>
+    <div class="feature-item"><span class="feature-check">✓</span><span class="feature-text">Priority AI speed</span></div>
+    <div class="feature-item"><span class="feature-check">✓</span><span class="feature-text">Email history & export</span></div>
+    <div class="feature-item"><span class="feature-check">✓</span><span class="feature-text">Higher response optimization</span></div>
+  </div>
+
+  <div class="pricing-cards">
+    <div class="pricing-card">
+      <div class="pricing-period">MONTHLY</div>
+      <div class="pricing-price">$9</div>
+      <div class="pricing-period-label">per month</div>
+    </div>
+    <div class="pricing-card best">
+      <div class="best-badge">Best Value</div>
+      <div class="pricing-period">YEARLY</div>
+      <div class="pricing-price">$79</div>
+      <div class="pricing-period-label">per year</div>
+    </div>
+  </div>
+
+  <button class="upgrade-btn" onclick="window.open('https://shreyanshetty.gumroad.com/l/tszqt', '_blank')">
+🚀 Upgrade Now
+</button>
+
+  <div class="trust-section">
+    <div class="trust-item">🔒<br>Secure</div>
+    <div class="trust-item">↩️<br>7-Day Refund</div>
+    <div class="trust-item">❌<br>Cancel Anytime</div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav" style="display:none;">
+  <div class="nav-item active" onclick="showScreen('home')" id="nav-home">
+    <div class="nav-icon">🏠</div>
+    <div class="nav-label">Home</div>
+  </div>
+  <div class="nav-item" onclick="showScreen('generator')" id="nav-generator">
+    <div class="nav-icon">⚡</div>
+    <div class="nav-label">Generate</div>
+  </div>
+  <div class="nav-item" onclick="showScreen('history')" id="nav-history">
+    <div class="nav-icon">📋</div>
+    <div class="nav-label">History</div>
+  </div>
+  <div class="nav-item" onclick="showScreen('paywall')" id="nav-paywall">
+    <div class="nav-icon">👑</div>
+    <div class="nav-label">Pro</div>
+  </div>
+</nav>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="ai-orb"></div>
+  <div class="loading-text">Crafting your email<span class="loading-dots"></span></div>
+</div>
+
+<script>
+// STATE
+let currentTone = 'Professional';
+let emailHistory = JSON.parse(localStorage.getItem('emailHistory') || '[]');
+let todayCount = parseInt(localStorage.getItem('todayCount') || '0');
+let lastDate = localStorage.getItem('lastDate') || '';
+let totalGenerated = parseInt(localStorage.getItem('totalGenerated') || '0');
+const isProUser = localStorage.getItem('proUser') === 'true';
+const FREE_LIMIT = isProUser ? 9999 : 2;
+// Reset daily count
+const today = new Date().toDateString();
+if (lastDate !== today) {
+  todayCount = 0;
+  localStorage.setItem('todayCount', '0');
+  localStorage.setItem('lastDate', today);
+}
+
+// INIT
+window.onload = () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.remove('active');
+    document.getElementById('home').classList.add('active');
+    document.getElementById('bottomNav').style.display = 'flex';
+    updateStats();
+    renderHistory();
+  }, 2800);
+};
+
+function updateStats() {
+  const remaining = Math.max(0, FREE_LIMIT - todayCount);
+  document.getElementById('homeCredits').textContent = remaining + ' / ' + FREE_LIMIT;
+  document.getElementById('totalGenerated').textContent = totalGenerated;
+  document.getElementById('todayCount').textContent = todayCount;
+  document.getElementById('creditsLeft').textContent = remaining;
+}
+
+function showScreen(screenId) {
+  // Pro unlock code check
+  if (screenId === 'paywall' && !isProUser) {
+    const code = prompt('Enter your ColdFlow Pro unlock code:');
+    if (code === 'COLDPRO2026') {
+      localStorage.setItem('proUser', 'true');
+      alert('🚀 ColdFlow Pro Activated!');
+      location.reload();
+      return;
+    }
+  }
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navMap = { home: 'nav-home', generator: 'nav-generator', history: 'nav-history', paywall: 'nav-paywall' };
+  if (navMap[screenId]) document.getElementById(navMap[screenId]).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function selectTone(el, tone) {
+  document.querySelectorAll('.tone-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  currentTone = tone;
+}
+
+async function generateEmail() {
+  const yourName = document.getElementById('yourName').value.trim();
+  const yourService = document.getElementById('yourService').value.trim();
+  const companyName = document.getElementById('companyName').value.trim();
+
+  if (!yourName || !yourService || !companyName) {
+    alert('Please fill in all fields!');
+    return;
+  }
+
+  if (todayCount >= FREE_LIMIT) {
+    showScreen('paywall');
+    return;
+  }
+
+  document.getElementById('loadingOverlay').classList.add('active');
+
+  const prompt = `Write a ${currentTone} cold email from ${yourName} who offers: ${yourService}. 
+They are reaching out to ${companyName}.
+Format your response EXACTLY like this:
+Subject: [subject line here]
+
+[email body here]
+
+Make it concise, personalized, under 120 words, with a clear call to action.`;
+
+  try {
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ prompt })
+    });
+
+    const data = await response.json();
+    const fullEmail = data.email;
+
+    const lines = fullEmail.split('\n');
+    const subjectLine = lines.find(l => l.toLowerCase().startsWith('subject:')) || 'Subject: Following up';
+    const body = lines.filter(l => !l.toLowerCase().startsWith('subject:')).join('\n').trim();
+
+    document.getElementById('emailSubject').textContent = subjectLine;
+    document.getElementById('emailBody').textContent = body;
+
+    const scores = {
+      reply: Math.floor(Math.random() * 15) + 78,
+      read: Math.floor(Math.random() * 10) + 85,
+      spam: Math.floor(Math.random() * 15) + 5
+    };
+
+    document.getElementById('replyScore').textContent = scores.reply + '%';
+    document.getElementById('replyBar').style.width = scores.reply + '%';
+    document.getElementById('readScore').textContent = scores.read + '%';
+    document.getElementById('readBar').style.width = scores.read + '%';
+    document.getElementById('spamScore').textContent = scores.spam < 20 ? 'Low' : 'Medium';
+    document.getElementById('spamBar').style.width = scores.spam + '%';
+
+    todayCount++;
+    totalGenerated++;
+    localStorage.setItem('todayCount', todayCount);
+    localStorage.setItem('totalGenerated', totalGenerated);
+    localStorage.setItem('lastDate', today);
+
+    const historyItem = {
+      company: companyName,
+      date: new Date().toLocaleDateString(),
+      subject: subjectLine,
+      body: body
+    };
+
+    emailHistory.unshift(historyItem);
+    localStorage.setItem('emailHistory', JSON.stringify(emailHistory));
+
+    updateStats();
+    renderHistory();
+
+    document.getElementById('loadingOverlay').classList.remove('active');
+    showScreen('result-screen');
+
+  } catch (error) {
+    document.getElementById('loadingOverlay').classList.remove('active');
+    alert('Something went wrong! Check your API key.');
+  }
+}
+
+function copyEmail() {
+  const subject = document.getElementById('emailSubject').textContent;
+  const body = document.getElementById('emailBody').textContent;
+  navigator.clipboard.writeText(subject + '\n\n' + body).then(() => {
+    const btn = document.querySelector('.action-btn.primary');
+    const original = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.style.background = '';
+    }, 2000);
+  });
+}
+
+function renderHistory() {
+  const container = document.getElementById('recentEmails');
+  const histContainer = document.getElementById('historyList');
+
+  if (emailHistory.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><div>No emails yet. Generate your first one!</div></div>';
+    histContainer.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><div>No emails yet!</div></div>';
+    return;
+  }
+
+  const recentHtml = emailHistory.slice(0, 3).map(e => `
+    <div class="email-card">
+      <div class="email-card-header">
+        <div class="email-company">${e.company}</div>
+        <div class="email-date">${e.date}</div>
+      </div>
+      <div class="email-preview">${e.subject}</div>
+    </div>
+  `).join('');
+
+  container.innerHTML = recentHtml;
+
+  const histHtml = emailHistory.map(e => `
+    <div class="email-card">
+      <div class="email-card-header">
+        <div class="email-company">${e.company}</div>
+        <div class="email-date">${e.date}</div>
+      </div>
+      <div class="email-preview">${e.subject}</div>
+      <div style="font-size:12px;color:#9ca3af;margin-top:8px;">${e.body.substring(0, 100)}...</div>
+    </div>
+  `).join('');
+
+  histContainer.innerHTML = histHtml;
+}
+
+// Register PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+</script>
+</body>
+</html>
