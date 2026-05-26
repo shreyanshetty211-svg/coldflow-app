@@ -718,7 +718,7 @@ let todayCount = parseInt(localStorage.getItem('todayCount') || '0');
 let lastDate = localStorage.getItem('lastDate') || '';
 let totalGenerated = parseInt(localStorage.getItem('totalGenerated') || '0');
 const isProUser = localStorage.getItem('proUser') === 'true';
-const FREE_LIMIT = isProUser ? 9999 : 2;
+const FREE_LIMIT = isProUser ? 9999 : 3;
 // Reset daily count
 const today = new Date().toDateString();
 if (lastDate !== today) {
