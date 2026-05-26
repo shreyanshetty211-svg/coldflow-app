@@ -802,7 +802,13 @@ Make it concise, personalized, under 120 words, with a clear call to action.`;
       body: JSON.stringify({ prompt })
     });
 
-    const data = await response.json();
+    const raw = await response.text();
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      throw new Error('Server returned non-JSON: ' + raw.substring(0, 200));
+    }
 
     if (!response.ok) {
       throw new Error(data.error || 'Backend error: ' + response.status);
