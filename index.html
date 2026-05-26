@@ -671,9 +671,8 @@ textarea.form-input { min-height: 90px; resize: none; }
     </div>
   </div>
 
-  <button class="upgrade-btn" onclick="window.open('https://shreyanshetty.gumroad.com/l/tszqt', '_blank')">
-🚀 Upgrade Now
-</button>
+  <button class="upgrade-btn" onclick="window.open('https://shreyanshetty.gumroad.com/l/tszqt', '_blank')">🚀 Upgrade Now</button>
+  <button onclick="unlockPro()" style="display:block;margin:0 auto 20px;background:none;border:none;color:#9ca3af;font-size:13px;cursor:pointer;font-family:'Poppins',sans-serif;text-decoration:underline;">Already purchased? Unlock Pro</button>
 
   <div class="trust-section">
     <div class="trust-item">🔒<br>Secure</div>
@@ -745,22 +744,21 @@ function updateStats() {
 }
 
 function showScreen(screenId) {
-  // Pro unlock code check
-  if (screenId === 'paywall' && !isProUser) {
-    const code = prompt('Enter your ColdFlow Pro unlock code:');
-    if (code === 'COLDPRO2026') {
-      localStorage.setItem('proUser', 'true');
-      alert('🚀 ColdFlow Pro Activated!');
-      location.reload();
-      return;
-    }
-  }
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(screenId).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const navMap = { home: 'nav-home', generator: 'nav-generator', history: 'nav-history', paywall: 'nav-paywall' };
   if (navMap[screenId]) document.getElementById(navMap[screenId]).classList.add('active');
   window.scrollTo(0, 0);
+}
+
+function unlockPro() {
+  const code = prompt('Enter your ColdFlow Pro unlock code:');
+  if (code === 'COLDPRO2026') {
+    localStorage.setItem('proUser', 'true');
+    alert('🚀 ColdFlow Pro Activated!');
+    location.reload();
+  }
 }
 
 function selectTone(el, tone) {
