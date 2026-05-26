@@ -787,14 +787,23 @@ async function generateEmail() {
 
   document.getElementById('loadingOverlay').classList.add('active');
 
-  const prompt = `Write a ${currentTone} cold email from ${yourName} who offers: ${yourService}. 
-They are reaching out to ${companyName}.
-Format your response EXACTLY like this:
-Subject: [subject line here]
+  const toneGuide = {
+    'Professional': 'confident and polished, like a senior consultant reaching out',
+    'Friendly': 'warm and conversational, like a peer reaching out to another peer',
+    'Persuasive': 'outcome-focused, paint a clear picture of the result they will get',
+    'Short & Direct': 'ultra-brief, 5 sentences max, no fluff whatsoever'
+  };
 
-[email body here]
+  const prompt = `Write a cold email with this exact tone: ${toneGuide[currentTone] || currentTone}
 
-Make it concise, personalized, under 120 words, with a clear call to action.`;
+Sender: ${yourName}
+What they offer: ${yourService}
+Prospect/Company: ${companyName}
+
+Format EXACTLY like this (nothing else before or after):
+Subject: [4-7 word lowercase subject line]
+
+[email body — max 110 words, short paragraphs, ends with one simple CTA question]`;
 
   try {
     const response = await fetch('/api/generate', {
