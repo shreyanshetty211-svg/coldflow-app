@@ -557,6 +557,36 @@ textarea.form-input { min-height: 90px; resize: none; }
 
 .examples-cta:active { opacity: 0.7; }
 
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #22c55e;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 300;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* GENERATE BUTTON LOADING */
+.generate-btn-fixed:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* HISTORY SCREEN */
 #history { padding: 50px 20px 100px; }
 .history-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
@@ -808,6 +838,9 @@ Open to a 15-min look?</div>
   </div>
 </nav>
 
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
 <!-- LOADING OVERLAY -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="ai-orb"></div>
@@ -874,6 +907,13 @@ function selectTone(el, tone) {
   currentTone = tone;
 }
 
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
 async function generateEmail() {
   const yourName = document.getElementById('yourName').value.trim();
   const yourService = document.getElementById('yourService').value.trim();
@@ -888,6 +928,10 @@ async function generateEmail() {
     showScreen('paywall');
     return;
   }
+
+  const btn = document.querySelector('.generate-btn-fixed');
+  btn.disabled = true;
+  btn.textContent = '✍️ Writing your cold email...';
 
   document.getElementById('loadingOverlay').classList.add('active');
 
@@ -972,10 +1016,14 @@ Subject: [4-7 word lowercase subject line]
     renderHistory();
 
     document.getElementById('loadingOverlay').classList.remove('active');
+    btn.disabled = false;
+    btn.textContent = '⚡ Generate Cold Email';
     showScreen('result-screen');
 
   } catch (error) {
     document.getElementById('loadingOverlay').classList.remove('active');
+    btn.disabled = false;
+    btn.textContent = '⚡ Generate Cold Email';
     alert('❌ ' + (error.message || JSON.stringify(error)));
   }
 }
@@ -984,6 +1032,7 @@ function copyEmail() {
   const subject = document.getElementById('emailSubject').textContent;
   const body = document.getElementById('emailBody').textContent;
   navigator.clipboard.writeText(subject + '\n\n' + body).then(() => {
+    showToast('✅ Email copied to clipboard');
     const btn = document.querySelector('.action-btn.primary');
     const original = btn.textContent;
     btn.textContent = '✅ Copied!';
