@@ -788,10 +788,10 @@ async function generateEmail() {
   document.getElementById('loadingOverlay').classList.add('active');
 
   const toneGuide = {
-    'Professional': 'confident and polished, like a senior consultant reaching out',
-    'Friendly': 'warm and conversational, like a peer reaching out to another peer',
-    'Persuasive': 'outcome-focused, paint a clear picture of the result they will get',
-    'Short & Direct': 'ultra-brief, 5 sentences max, no fluff whatsoever'
+    'Professional': `formal business email tone. Start with "Dear [prospect name]," and end with "Best regards,\n${yourName}". Use polished, structured language. Clear value proposition. No slang.`,
+    'Friendly': `warm and conversational, like a founder emailing a peer. Use first names, casual phrasing, short sentences. Feel like a genuine human reaching out, not a sales rep.`,
+    'Persuasive': `emotionally compelling with curiosity hooks. Open with a pain point or bold statement. Build desire. Create mild urgency. End with a CTA that feels hard to ignore.`,
+    'Short & Direct': `ultra-minimal. Max 5 sentences total. No greeting, no signoff fluff. One hook, one value line, one CTA question. Startup operator style.`
   };
 
   const prompt = `Write a cold email with this exact tone: ${toneGuide[currentTone] || currentTone}
