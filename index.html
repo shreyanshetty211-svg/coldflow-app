@@ -153,7 +153,15 @@ body {
 }
 
 .hero-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-.hero-sub { font-size: 13px; opacity: 0.85; margin-bottom: 16px; }
+.hero-sub { font-size: 13px; opacity: 0.85; margin-bottom: 12px; }
+
+.hero-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+.hero-bullets span { font-size: 12px; opacity: 0.9; }
 .hero-btn {
   background: white;
   color: #6c63ff;
@@ -615,9 +623,14 @@ textarea.form-input { min-height: 90px; resize: none; }
   </div>
 
   <div class="hero-card">
-    <div class="hero-title">Generate High-Converting Cold Emails in Seconds</div>
-    <div class="hero-sub">Powered by AI to boost replies and close more deals.</div>
-    <button class="hero-btn" onclick="showScreen('generator')">Generate Email ⚡</button>
+    <div class="hero-title">Cold emails people actually reply to</div>
+    <div class="hero-sub">AI-written outreach for freelancers, founders & agencies — sounds human, converts better.</div>
+    <div class="hero-bullets">
+      <span>⚡ Generates in seconds</span>
+      <span>📩 Human-sounding outreach</span>
+      <span>🚀 Built for founders & freelancers</span>
+    </div>
+    <button class="hero-btn" onclick="showScreen('generator')">Write My Cold Email ⚡</button>
   </div>
 
   <div class="free-badge">
