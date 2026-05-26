@@ -803,6 +803,11 @@ Make it concise, personalized, under 120 words, with a clear call to action.`;
     });
 
     const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Backend error: ' + response.status);
+    }
+
     const fullEmail = data.email;
 
     const lines = fullEmail.split('\n');
@@ -849,7 +854,7 @@ Make it concise, personalized, under 120 words, with a clear call to action.`;
 
   } catch (error) {
     document.getElementById('loadingOverlay').classList.remove('active');
-    alert('Something went wrong! Check your API key.');
+    alert('Error: ' + (error.message || 'Unknown error'));
   }
 }
 
