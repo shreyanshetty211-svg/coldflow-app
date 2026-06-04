@@ -121,6 +121,89 @@ body {
 .nav-icon { font-size: 20px; color: #9ca3af; }
 .nav-label { font-size: 10px; color: #9ca3af; }
 
+/* SAAS HERO */
+.saas-hero {
+  display: flex;
+  gap: 24px;
+  padding: 40px 20px 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.saas-hero-left { flex: 1; min-width: 260px; }
+.saas-badge {
+  display: inline-block;
+  background: #6c63ff22;
+  border: 1px solid #6c63ff44;
+  color: #a78bfa;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+.saas-headline {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+.saas-desc {
+  font-size: 13px;
+  color: #9ca3af;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.saas-cta {
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 8px 24px #6c63ff44;
+  margin-bottom: 16px;
+  display: block;
+  width: 100%;
+}
+.saas-trust { display: flex; gap: 16px; flex-wrap: wrap; }
+.saas-trust span { font-size: 12px; color: #6c63ff; font-weight: 500; }
+.saas-hero-right { flex: 1; min-width: 260px; }
+.saas-email-mock {
+  background: #1a1a24;
+  border: 1px solid #6c63ff44;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 0 30px #6c63ff22;
+}
+.mock-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+.mock-dot.red { background: #ff5f57; }
+.mock-dot.yellow { background: #febc2e; }
+.mock-dot.green { background: #28c840; }
+.mock-label { font-size: 11px; color: #9ca3af; margin-left: 6px; }
+.mock-subject {
+  font-size: 12px;
+  color: #6c63ff;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2a2a3a;
+}
+.mock-body {
+  font-size: 12px;
+  color: #e5e7eb;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
 /* HOME SCREEN */
 #home { padding-bottom: 100px; }
 
@@ -626,23 +709,39 @@ textarea.form-input { min-height: 90px; resize: none; }
 
 <!-- HOME -->
 <div class="screen" id="home">
-  <div class="home-header">
-    <div>
-      <div style="font-size:13px;color:#9ca3af;">Good day 👋</div>
-      <div class="greeting">Welcome to <span>ColdFlow</span></div>
+  <div class="saas-hero">
+    <div class="saas-hero-left">
+      <div class="saas-badge">⚡ AI-Powered Cold Outreach</div>
+      <h1 class="saas-headline">Cold emails people actually reply to.</h1>
+      <p class="saas-desc">AI-powered cold email writing for founders, freelancers, agencies, and recruiters. Personalized outreach that sounds human and gets replies.</p>
+      <button class="saas-cta" onclick="showScreen('generator')">Generate My Email →</button>
+      <div class="saas-trust">
+        <span>✓ No signup required</span>
+        <span>✓ Generate in seconds</span>
+        <span>✓ Free to try</span>
+      </div>
     </div>
-    <div class="avatar">⚡</div>
-  </div>
+    <div class="saas-hero-right">
+      <div class="saas-email-mock">
+        <div class="mock-header">
+          <div class="mock-dot red"></div>
+          <div class="mock-dot yellow"></div>
+          <div class="mock-dot green"></div>
+          <span class="mock-label">AI Generated Email</span>
+        </div>
+        <div class="mock-subject">Subject: your design agency + our clients</div>
+        <div class="mock-body">Hi Neha,
 
-  <div class="hero-card">
-    <div class="hero-title">Cold emails people actually reply to</div>
-    <div class="hero-sub">AI-written outreach for freelancers, founders & agencies — sounds human, converts better.</div>
-    <div class="hero-bullets">
-      <span>⚡ Generates in seconds</span>
-      <span>📩 Human-sounding outreach</span>
-      <span>🚀 Built for founders & freelancers</span>
+I run a SaaS company with 3 portfolio brands that need ongoing design work — landing pages, pitch decks, social assets.
+
+We’ve been patching it with freelancers but it’s getting messy. Looks like your agency handles exactly this.
+
+Would it make sense to get on a quick call this week?
+
+Best,
+Rohan</div>
+      </div>
     </div>
-    <button class="hero-btn" onclick="showScreen('generator')">Write My Cold Email ⚡</button>
   </div>
 
   <div class="free-badge">
