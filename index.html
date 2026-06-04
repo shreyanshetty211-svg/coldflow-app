@@ -187,6 +187,28 @@ body {
 .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 20px; }
 @media (max-width: 768px) { .faq-title { font-size: 26px; } }
 
+/* CTA SECTION */
+.final-cta-section { padding: 60px 20px 40px; }
+.final-cta-card { background: #1a1a24; border: 1px solid #6c63ff44; border-radius: 24px; padding: 48px 32px; text-align: center; box-shadow: 0 0 40px #6c63ff22; }
+.final-cta-title { font-size: 32px; font-weight: 800; margin-bottom: 16px; line-height: 1.3; }
+.final-cta-desc { font-size: 15px; color: #9ca3af; margin-bottom: 28px; line-height: 1.7; max-width: 480px; margin-left: auto; margin-right: auto; }
+.final-cta-btn { background: linear-gradient(135deg, #6c63ff, #a78bfa); color: white; border: none; padding: 16px 36px; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif; box-shadow: 0 8px 24px #6c63ff44; transition: opacity 0.2s, transform 0.2s; }
+.final-cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+@media (max-width: 768px) { .final-cta-title { font-size: 24px; } .final-cta-card { padding: 32px 20px; } }
+
+/* FOOTER */
+.site-footer { background: #0f0f14; border-top: 1px solid #1a1a24; padding: 48px 20px 100px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand-name { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+.footer-brand-name span { color: #6c63ff; }
+.footer-brand-desc { font-size: 13px; color: #9ca3af; line-height: 1.7; }
+.footer-col-title { font-size: 12px; font-weight: 700; color: #fff; letter-spacing: 1px; margin-bottom: 16px; }
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-link { font-size: 13px; color: #9ca3af; text-decoration: none; cursor: pointer; transition: color 0.2s; }
+.footer-link:hover { color: #6c63ff; }
+.footer-bottom { border-top: 1px solid #1a1a24; padding-top: 24px; text-align: center; font-size: 12px; color: #9ca3af; }
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+
 /* GENERATOR SCREEN */
 #generator { padding-bottom: 160px; }
 .screen-header { padding: 50px 20px 20px; display: flex; align-items: center; gap: 12px; }
@@ -469,10 +491,10 @@ Rohan</div>
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
-          <span>Do the emails actually get replies?</span>
+          <span>Will ColdFlow guarantee replies?</span>
           <span class="faq-icon">+</span>
         </div>
-        <div class="faq-answer">ColdFlow is trained to write concise, personalized, human-sounding emails. Results depend on your offer and targeting, but the emails avoid common spam triggers and generic AI phrasing.</div>
+        <div class="faq-answer">No tool can guarantee replies. ColdFlow helps create more personalized, human-sounding cold emails that improve your chances of getting responses. Results depend on your offer, targeting, and outreach strategy.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
@@ -483,7 +505,40 @@ Rohan</div>
       </div>
     </div>
   </div>
+
+  <div class="final-cta-section">
+    <div class="final-cta-card">
+      <h2 class="final-cta-title">Write better cold emails in seconds</h2>
+      <p class="final-cta-desc">Generate personalized outreach for founders, freelancers, agencies, recruiters and sales teams.</p>
+      <button class="final-cta-btn" onclick="showScreen('generator')">Generate My Email &#8594;</button>
+    </div>
+  </div>
 </div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">Cold<span>Flow</span></div>
+      <p class="footer-brand-desc">AI-powered cold email writing for founders, freelancers, agencies and recruiters.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">PRODUCT</div>
+      <div class="footer-links">
+        <span class="footer-link" onclick="document.querySelector('.features-section').scrollIntoView({behavior:'smooth'})">Features</span>
+        <span class="footer-link" onclick="document.querySelector('.pricing-section').scrollIntoView({behavior:'smooth'})">Pricing</span>
+        <span class="footer-link" onclick="document.querySelector('.faq-section').scrollIntoView({behavior:'smooth'})">FAQ</span>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">LEGAL</div>
+      <div class="footer-links">
+        <span class="footer-link">Privacy Policy</span>
+        <span class="footer-link">Terms</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&#169; 2026 ColdFlow. All rights reserved.</div>
+</footer>
 
 <!-- GENERATOR -->
 <div class="screen" id="generator">
