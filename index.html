@@ -165,10 +165,12 @@ body {
   font-family: 'Poppins', sans-serif;
   box-shadow: 0 8px 24px #6c63ff44;
   margin-bottom: 16px;
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: auto;
+  transition: opacity 0.2s, transform 0.2s;
 }
-.saas-trust { display: flex; gap: 16px; flex-wrap: wrap; }
+.saas-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+.saas-trust { display: flex; flex-direction: column; gap: 8px; }
 .saas-trust span { font-size: 12px; color: #6c63ff; font-weight: 500; }
 .saas-hero-right { flex: 1; min-width: 260px; }
 .saas-email-mock {
@@ -711,7 +713,7 @@ textarea.form-input { min-height: 90px; resize: none; }
 <div class="screen" id="home">
   <div class="saas-hero">
     <div class="saas-hero-left">
-      <div class="saas-badge">⚡ AI-Powered Cold Outreach</div>
+      <div class="saas-badge">⚡ Trusted by founders, freelancers & agencies</div>
       <h1 class="saas-headline">Cold emails people actually reply to.</h1>
       <p class="saas-desc">AI-powered cold email writing for founders, freelancers, agencies, and recruiters. Personalized outreach that sounds human and gets replies.</p>
       <button class="saas-cta" onclick="showScreen('generator')">Generate My Email →</button>
