@@ -132,6 +132,23 @@ body {
   .usecases-title { font-size: 26px; }
 }
 
+/* HOW IT WORKS */
+.howitworks-section { padding: 60px 20px 40px; }
+.howitworks-header { text-align: center; margin-bottom: 24px; }
+.howitworks-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+.howitworks-subtitle { font-size: 16px; color: #9ca3af; }
+.howitworks-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.howitworks-card { background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 16px; padding: 20px; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+.howitworks-card:hover { border-color: #6c63ff; transform: translateY(-2px); box-shadow: 0 8px 24px #6c63ff22; }
+.howitworks-step { font-size: 11px; font-weight: 700; color: #6c63ff; margin-bottom: 10px; letter-spacing: 1px; }
+.howitworks-icon { font-size: 26px; margin-bottom: 12px; }
+.howitworks-card-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.howitworks-card-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; }
+@media (max-width: 768px) {
+  .howitworks-grid { grid-template-columns: 1fr 1fr; }
+  .howitworks-title { font-size: 26px; }
+}
+
 /* GENERATOR SCREEN */
 #generator { padding-bottom: 160px; }
 .screen-header { padding: 50px 20px 20px; display: flex; align-items: center; gap: 12px; }
@@ -316,6 +333,39 @@ Rohan</div>
         <div class="usecase-icon">&#127919;</div>
         <div class="usecase-title">Recruiters</div>
         <div class="usecase-desc">Reach candidates with personalized messages that get replies.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="howitworks-section">
+    <div class="howitworks-header">
+      <h2 class="howitworks-title">How ColdFlow Works</h2>
+      <p class="howitworks-subtitle">Generate professional cold emails in less than 30 seconds.</p>
+    </div>
+    <div class="howitworks-grid">
+      <div class="howitworks-card">
+        <div class="howitworks-step">STEP 1</div>
+        <div class="howitworks-icon">&#128221;</div>
+        <div class="howitworks-card-title">Describe your prospect</div>
+        <div class="howitworks-card-desc">Tell ColdFlow who you're contacting.</div>
+      </div>
+      <div class="howitworks-card">
+        <div class="howitworks-step">STEP 2</div>
+        <div class="howitworks-icon">&#127917;</div>
+        <div class="howitworks-card-title">Choose a tone</div>
+        <div class="howitworks-card-desc">Professional, friendly, persuasive and more.</div>
+      </div>
+      <div class="howitworks-card">
+        <div class="howitworks-step">STEP 3</div>
+        <div class="howitworks-icon">&#9889;</div>
+        <div class="howitworks-card-title">Generate instantly</div>
+        <div class="howitworks-card-desc">AI creates a personalized cold email.</div>
+      </div>
+      <div class="howitworks-card">
+        <div class="howitworks-step">STEP 4</div>
+        <div class="howitworks-icon">&#128203;</div>
+        <div class="howitworks-card-title">Copy and send</div>
+        <div class="howitworks-card-desc">Use it immediately in your outreach.</div>
       </div>
     </div>
   </div>
