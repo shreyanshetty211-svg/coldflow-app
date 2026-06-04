@@ -116,6 +116,22 @@ body {
 .feature-card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
 .feature-card-desc { font-size: 14px; color: #9ca3af; line-height: 1.6; }
 
+/* USE CASES SECTION */
+.usecases-section { padding: 60px 20px 40px; }
+.usecases-header { text-align: center; margin-bottom: 24px; }
+.usecases-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+.usecases-subtitle { font-size: 16px; color: #9ca3af; }
+.usecases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.usecase-card { background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 16px; padding: 20px; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+.usecase-card:hover { border-color: #6c63ff; transform: translateY(-2px); box-shadow: 0 8px 24px #6c63ff22; }
+.usecase-icon { font-size: 26px; margin-bottom: 12px; }
+.usecase-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.usecase-desc { font-size: 14px; color: #9ca3af; line-height: 1.7; }
+@media (max-width: 768px) {
+  .usecases-grid { grid-template-columns: 1fr; }
+  .usecases-title { font-size: 26px; }
+}
+
 /* GENERATOR SCREEN */
 #generator { padding-bottom: 160px; }
 .screen-header { padding: 50px 20px 20px; display: flex; align-items: center; gap: 12px; }
@@ -271,6 +287,35 @@ Rohan</div>
         <div class="feature-card-icon">&#128241;</div>
         <div class="feature-card-title">Mobile First</div>
         <div class="feature-card-desc">Built to work smoothly on desktop and mobile.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="usecases-section">
+    <div class="usecases-header">
+      <h2 class="usecases-title">Built for every kind of outreach</h2>
+      <p class="usecases-subtitle">Whether you're a founder, freelancer, recruiter, or agency.</p>
+    </div>
+    <div class="usecases-grid">
+      <div class="usecase-card">
+        <div class="usecase-icon">&#128640;</div>
+        <div class="usecase-title">Founders</div>
+        <div class="usecase-desc">Generate investor outreach, partnership emails and customer acquisition messages in seconds.</div>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-icon">&#128188;</div>
+        <div class="usecase-title">Freelancers</div>
+        <div class="usecase-desc">Land more clients with personalized cold emails that sound human and professional.</div>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-icon">&#127970;</div>
+        <div class="usecase-title">Agencies</div>
+        <div class="usecase-desc">Scale outreach and prospecting without hiring a dedicated sales team.</div>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-icon">&#127919;</div>
+        <div class="usecase-title">Recruiters</div>
+        <div class="usecase-desc">Reach candidates with personalized messages that get replies.</div>
       </div>
     </div>
   </div>
