@@ -149,6 +149,29 @@ body {
   .howitworks-title { font-size: 26px; }
 }
 
+/* PRICING SECTION */
+.pricing-section { padding: 60px 20px 40px; }
+.pricing-section-header { text-align: center; margin-bottom: 32px; }
+.pricing-section-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+.pricing-section-subtitle { font-size: 16px; color: #9ca3af; }
+.pricing-section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.pricing-section-card { background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 20px; padding: 28px 24px; display: flex; flex-direction: column; gap: 20px; }
+.pricing-section-card.pro { border-color: #6c63ff; box-shadow: 0 0 30px #6c63ff22; position: relative; }
+.pricing-pro-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #6c63ff, #a78bfa); color: white; font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+.pricing-plan-name { font-size: 13px; font-weight: 700; color: #9ca3af; letter-spacing: 1px; }
+.pricing-plan-price { font-size: 36px; font-weight: 800; color: #fff; }
+.pricing-plan-price span { font-size: 14px; font-weight: 400; color: #9ca3af; }
+.pricing-plan-features { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.pricing-plan-feature { font-size: 13px; color: #e5e7eb; display: flex; align-items: center; gap: 8px; }
+.pricing-plan-feature::before { content: '\2713'; color: #6c63ff; font-weight: 700; flex-shrink: 0; }
+.pricing-plan-btn { background: #2a2a3a; color: #fff; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif; transition: opacity 0.2s; }
+.pricing-plan-btn.pro-btn { background: linear-gradient(135deg, #6c63ff, #a78bfa); box-shadow: 0 8px 24px #6c63ff44; }
+.pricing-plan-btn:hover { opacity: 0.9; }
+@media (max-width: 768px) {
+  .pricing-section-grid { grid-template-columns: 1fr; }
+  .pricing-section-title { font-size: 26px; }
+}
+
 /* GENERATOR SCREEN */
 #generator { padding-bottom: 160px; }
 .screen-header { padding: 50px 20px 20px; display: flex; align-items: center; gap: 12px; }
@@ -366,6 +389,38 @@ Rohan</div>
         <div class="howitworks-icon">&#128203;</div>
         <div class="howitworks-card-title">Copy and send</div>
         <div class="howitworks-card-desc">Use it immediately in your outreach.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricing-section">
+    <div class="pricing-section-header">
+      <h2 class="pricing-section-title">Simple pricing</h2>
+      <p class="pricing-section-subtitle">Start free. Upgrade when you need more.</p>
+    </div>
+    <div class="pricing-section-grid">
+      <div class="pricing-section-card">
+        <div class="pricing-plan-name">FREE PLAN</div>
+        <div class="pricing-plan-price">$0</div>
+        <div class="pricing-plan-features">
+          <div class="pricing-plan-feature">3 emails per day</div>
+          <div class="pricing-plan-feature">Multiple writing tones</div>
+          <div class="pricing-plan-feature">Email history</div>
+          <div class="pricing-plan-feature">Mobile friendly</div>
+        </div>
+        <button class="pricing-plan-btn" onclick="showScreen('generator')">Get Started Free</button>
+      </div>
+      <div class="pricing-section-card pro">
+        <div class="pricing-pro-badge">MOST POPULAR</div>
+        <div class="pricing-plan-name">PRO PLAN</div>
+        <div class="pricing-plan-price">$29 <span>lifetime</span></div>
+        <div class="pricing-plan-features">
+          <div class="pricing-plan-feature">Unlimited email generation</div>
+          <div class="pricing-plan-feature">Premium tones</div>
+          <div class="pricing-plan-feature">Priority updates</div>
+          <div class="pricing-plan-feature">Future features included</div>
+        </div>
+        <button class="pricing-plan-btn pro-btn" onclick="window.open('https://shreyanshetty.gumroad.com/l/tszqt','_blank')">Upgrade to Pro</button>
       </div>
     </div>
   </div>
