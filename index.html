@@ -172,6 +172,21 @@ body {
   .pricing-section-title { font-size: 26px; }
 }
 
+/* FAQ SECTION */
+.faq-section { padding: 60px 20px 40px; }
+.faq-header { text-align: center; margin-bottom: 32px; }
+.faq-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+.faq-subtitle { font-size: 16px; color: #9ca3af; }
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item { background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 16px; overflow: hidden; transition: border-color 0.2s; }
+.faq-item.open { border-color: #6c63ff; }
+.faq-question { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; cursor: pointer; font-size: 15px; font-weight: 600; gap: 12px; }
+.faq-icon { color: #6c63ff; font-size: 20px; flex-shrink: 0; transition: transform 0.3s; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-answer { font-size: 14px; color: #9ca3af; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0 24px; }
+.faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 20px; }
+@media (max-width: 768px) { .faq-title { font-size: 26px; } }
+
 /* GENERATOR SCREEN */
 #generator { padding-bottom: 160px; }
 .screen-header { padding: 50px 20px 20px; display: flex; align-items: center; gap: 12px; }
@@ -421,6 +436,50 @@ Rohan</div>
           <div class="pricing-plan-feature">Future features included</div>
         </div>
         <button class="pricing-plan-btn pro-btn" onclick="window.open('https://shreyanshetty.gumroad.com/l/tszqt','_blank')">Upgrade to Pro</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <div class="faq-header">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+      <p class="faq-subtitle">Everything you need to know about ColdFlow.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Is ColdFlow really free to use?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Yes. You get 3 free cold emails every day with no signup required. Upgrade to Pro for unlimited generation.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>How is ColdFlow different from ChatGPT?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">ColdFlow is purpose-built for cold email. It uses optimized prompts, tone controls, and formatting rules that make emails sound human — not like AI output.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>What does the Pro plan include?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Pro gives you unlimited email generation, access to all tones, priority updates, and all future features — for a one-time lifetime payment of $29.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Do the emails actually get replies?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">ColdFlow is trained to write concise, personalized, human-sounding emails. Results depend on your offer and targeting, but the emails avoid common spam triggers and generic AI phrasing.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Can I use ColdFlow on mobile?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Yes. ColdFlow is a mobile-first PWA. You can install it on your home screen and use it on any device, anywhere.</div>
       </div>
     </div>
   </div>
@@ -745,6 +804,13 @@ function renderHistory() {
       <div style="font-size:12px;color:#9ca3af;margin-top:8px;">${e.body.substring(0, 100)}...</div>
     </div>
   `).join('');
+}
+
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
 }
 
 if ('serviceWorker' in navigator) {
