@@ -599,6 +599,28 @@ textarea.form-input { min-height: 90px; resize: none; }
   100% { content: '...'; }
 }
 
+/* FEATURES SECTION */
+.features-section { padding: 60px 20px 40px; }
+.features-header { text-align: center; margin-bottom: 20px; }
+.features-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+.features-subtitle { font-size: 16px; color: #9ca3af; }
+.features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.feature-card {
+  background: #1a1a24;
+  border: 1px solid #2a2a3a;
+  border-radius: 16px;
+  padding: 28px 24px;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.feature-card:hover {
+  border-color: #6c63ff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px #6c63ff22;
+}
+.feature-card-icon { font-size: 24px; margin-bottom: 10px; }
+.feature-card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.feature-card-desc { font-size: 14px; color: #9ca3af; line-height: 1.6; }
+
 /* EXAMPLES SECTION */
 .examples-section { padding: 0 20px 20px; }
 .examples-title { font-size: 14px; color: #9ca3af; margin-bottom: 12px; }
@@ -742,6 +764,35 @@ Would it make sense to get on a quick call this week?
 
 Best,
 Rohan</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <div class="features-header">
+      <h2 class="features-title">Everything you need to write better cold emails</h2>
+      <p class="features-subtitle">Professional outreach without the complexity.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card-icon">⚡</div>
+        <div class="feature-card-title">AI Email Generation</div>
+        <div class="feature-card-desc">Generate personalized cold emails in seconds.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">🎭</div>
+        <div class="feature-card-title">Multiple Writing Tones</div>
+        <div class="feature-card-desc">Professional, friendly, persuasive and more.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">📜</div>
+        <div class="feature-card-title">Email History</div>
+        <div class="feature-card-desc">Access and reuse previously generated emails.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">📱</div>
+        <div class="feature-card-title">Mobile First</div>
+        <div class="feature-card-desc">Built to work smoothly on desktop and mobile.</div>
       </div>
     </div>
   </div>
